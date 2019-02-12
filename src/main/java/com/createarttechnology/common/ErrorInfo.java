@@ -9,6 +9,7 @@ public enum ErrorInfo {
     DB_ERROR(-2, "db error"),
     INVALID_PARAMS(-3, "invalid params"),
     NO_AUTH(-4, "no auth"),
+    RESOURCE_NOT_FOUND(-5, "resource not found"),
     ;
 
 
