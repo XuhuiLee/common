@@ -1,6 +1,7 @@
 package com.createarttechnology.common.filter;
 
 import com.createarttechnology.jutil.AntiBotUtil;
+import com.createarttechnology.jutil.RequestUtil;
 import com.createarttechnology.jutil.StringUtil;
 import com.createarttechnology.logger.Logger;
 
@@ -28,7 +29,7 @@ public class AccessFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
 
         String userAgent = req.getHeader("User-Agent");
-        String ip = req.getRemoteHost();
+        String ip = RequestUtil.getIP(req);
         String uri = req.getRequestURI();
         if (StringUtil.isNotEmpty(req.getQueryString())) {
             uri += "?" + req.getQueryString();
@@ -72,15 +73,14 @@ public class AccessFilter implements Filter {
         if (StringUtil.isEmpty(referer)) referer = "-";
 
         StringBuilder builder = new StringBuilder(256);
-        if (isBot) builder.append(1).append('\t');
-
-        builder.append(ip).append('\t')
-            .append(method).append('\t')
-            .append(uri).append('\t')
-            .append(retCode).append('\t')
-            .append(cost).append('\t')
-            .append(referer).append('\t')
-            .append(userAgent).append('\t');
+        builder.append(isBot ? 1 : 0).append('\t')
+                .append(ip).append('\t')
+                .append(method).append('\t')
+                .append(uri).append('\t')
+                .append(retCode).append('\t')
+                .append(cost).append('\t')
+                .append(referer).append('\t')
+                .append(userAgent).append('\t');
 
         appendCookie(builder, cookies);
 
