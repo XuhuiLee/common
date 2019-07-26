@@ -28,6 +28,7 @@ public class AccessFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
+        String scheme = req.getScheme();
         String userAgent = req.getHeader("User-Agent");
         String ip = RequestUtil.getIP(req);
         String uri = req.getRequestURI();
@@ -51,14 +52,7 @@ public class AccessFilter implements Filter {
         long endTime = System.currentTimeMillis();
 
         int retCode = resp.getStatus();
-        if (needPrintAccessLog(uri)) {
-            printAccessLog(isBot, method, host + uri, retCode, endTime - startTime, referer, ip, userAgent, cookies);
-        }
-    }
-
-    private static boolean needPrintAccessLog(String uri) {
-        // 静态资源已经迁移到nginx
-        return true;
+        printAccessLog(isBot, method, scheme + "://" + host + uri, retCode, endTime - startTime, referer, ip, userAgent, cookies);
     }
 
     private static void printAccessLog(boolean isBot,
