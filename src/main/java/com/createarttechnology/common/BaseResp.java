@@ -7,6 +7,7 @@ public class BaseResp<T> {
     private int code = ErrorInfo.ERROR.getCode();
     private String msg = ErrorInfo.ERROR.getMsg();
     private T data;
+    private String locateAnchor;
 
     public BaseResp() {}
 
@@ -52,12 +53,21 @@ public class BaseResp<T> {
         return this;
     }
 
+    public String getLocateAnchor() {
+        return locateAnchor;
+    }
+
+    public void setLocateAnchor(String locateAnchor) {
+        this.locateAnchor = locateAnchor;
+    }
+
     @Override
     public String toString() {
         return "BaseResp{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +
+                ", locateAnchor='" + locateAnchor + '\'' +
                 '}';
     }
 }

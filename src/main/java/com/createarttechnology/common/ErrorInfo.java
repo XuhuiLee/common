@@ -10,6 +10,7 @@ public enum ErrorInfo {
     INVALID_PARAMS(-3, "invalid params"),
     NO_AUTH(-4, "no auth"),
     RESOURCE_NOT_FOUND(-5, "resource not found"),
+    NO_MORE_DATA(1, "no more data"),
     ;
 
 
